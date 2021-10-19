@@ -1,11 +1,15 @@
 import React from 'react';
 import { Card, Col, Image } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import star from '../../../assets/images/star.svg';
+import { DEVICE_PAGE_ROUTE } from '../../../utils/consts';
 
 const DeviceItem = ({device}) => {
 
+  const history = useHistory();
+
   return (
-    <Col md={3} className="ms-2" style={{width: 'auto'}}>
+    <Col md={3} className="ms-2" style={{width: 'auto'}} onClick={()=>history.push(DEVICE_PAGE_ROUTE + '/' + device.id)}>
       <Card style={{width: 150, cursor: 'pointer'}} border={'light'} className="mt-4">
         <Image width={150} height={150} src={'http://' + device.img} />
         
