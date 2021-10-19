@@ -3,15 +3,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import {authRoutes, publicRoutes} from '../utils/routes';
 import Error from '../pages/Error';
 import { useSelector, useDispatch } from "react-redux";
-import {auth} from '../actions/user';
 
 const AppRouter = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
-  // const dispatch = useDispatch();
-
-  // useEffect(()=>{
-  //   dispatch(auth())
-  // }, [])
 
   return (
     <Switch>
