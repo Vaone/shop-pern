@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {authRoutes, publicRoutes} from '../utils/routes';
 import Error from '../pages/Error';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const AppRouter = () => {
   const isAuth = useSelector((state) => state.user.isAuth);

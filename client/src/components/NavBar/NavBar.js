@@ -4,9 +4,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { SHOP_ROUTE } from "../utils/consts";
+import { SHOP_ROUTE } from "../../utils/consts";
 import { useSelector } from "react-redux";
-import {logout, setUser} from '../reducers/userReducer';
+import {logout, setUser} from '../../reducers/userReducer';
 import { useDispatch } from "react-redux";
 
 const NavBar = () => {
@@ -17,7 +17,7 @@ const NavBar = () => {
     <Navbar bg="danger" variant="dark">
       <Container>
         <NavLink to={SHOP_ROUTE} style={{ color: "white" }}>
-          МагазIn
+          МагазIN
         </NavLink>
         {isAuth ? (
           <Nav className="ms-auto">
