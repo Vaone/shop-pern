@@ -4,9 +4,14 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { ADMIN_ROUTE, SHOP_ROUTE } from "../../utils/consts";
+import {
+  ADMIN_ROUTE,
+  LOGIN_ROUTE,
+  REGISTRATION_ROUTE,
+  SHOP_ROUTE,
+} from "../../utils/consts";
 import { useSelector } from "react-redux";
-import { logout, setUser } from "../../reducers/userReducer";
+import { logout } from "../../reducers/userReducer";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -14,6 +19,11 @@ const NavBar = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  function logoutClick() {
+    dispatch(logout());
+    localStorage.removeItem('token')
+  }
 
   return (
     <Navbar bg="danger" variant="dark">
@@ -35,9 +45,7 @@ const NavBar = () => {
             <Button
               className="ms-2"
               variant={"outline-light"}
-              onClick={() => {
-                dispatch(logout());
-              }}
+              onClick={logoutClick}
             >
               Выйти
             </Button>
@@ -47,12 +55,18 @@ const NavBar = () => {
             <Button
               variant={"outline-light"}
               onClick={() => {
-                dispatch(setUser({}));
+                history.push(LOGIN_ROUTE);
               }}
             >
               Войти
             </Button>
-            <Button className="ms-2" variant={"outline-light"}>
+            <Button
+              className="ms-2"
+              variant={"outline-light"}
+              onClick={() => {
+                history.push(REGISTRATION_ROUTE);
+              }}
+            >
               Регистрация
             </Button>
           </Nav>
