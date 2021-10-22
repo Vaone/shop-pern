@@ -1,12 +1,12 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedBrand } from "../../reducers/deviceReducer";
+import { setSelectedBrand } from "../../reducers/brandReducer";
 import "./brandBar.css";
 
 const BrandBar = () => {
-  const brands = useSelector((state) => state.device.brands);
-  const selectedBrandId = useSelector((state) => state.device.selectedBrand.id);
+  const brands = useSelector((state) => state.brand.brands);
+  const selectedBrandId = useSelector((state) => state.brand.selectedBrand.id);
   const dispatch = useDispatch();
 
   return (
