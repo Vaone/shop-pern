@@ -13,7 +13,7 @@ export default function deviceReducer(state = defaultState, action) {
     case SET_DEVICE:
       return {
         ...state,
-        device: action.payload,
+        devices: action.payload,
       };
     default:
       return state;
