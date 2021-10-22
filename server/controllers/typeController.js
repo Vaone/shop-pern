@@ -1,11 +1,15 @@
-const {Type} = require('../models/models')
+const {Type} = require('../models/models');
 const ApiError = require('../error/ApiError');
 
 class TypeController {
     async create(req, res) {
-        const {name} = req.body
-        const type = await Type.create({name})
-        return res.json(type)
+        try {
+            const {name} = req.body
+            const type = await Type.create({name})
+            return res.json(type)
+        } catch(e) {
+            return res.status(400).json({message: 'Creation Error'})
+        }
     }
 
     async getAll(req, res) {
