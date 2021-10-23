@@ -11,7 +11,11 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
+  const store = useSelector((store) => store);
+
   useEffect(() => {
+    console.log(store);
+
     check()
       .then((data) => {
         dispatch(setUser(data));
