@@ -7,7 +7,7 @@ import { DEVICE_PAGE_ROUTE } from '../../../utils/consts';
 const DeviceItem = ({device}) => {
 
   const history = useHistory();
-
+  console.log(device);
   return (
     <Col md={3} className="ms-2" style={{width: 'auto'}} onClick={()=>history.push(DEVICE_PAGE_ROUTE + '/' + device.id)}>
       <Card style={{width: 150, cursor: 'pointer'}} border={'light'} className="mt-4">
@@ -20,7 +20,7 @@ const DeviceItem = ({device}) => {
             <Image style={{width: 20, height: 20}} className="align-self-center" src={star} />
           </div>
         </div>
-        <div className="text-black-50">Samsung</div>
+        <div className="text-black-50">{device.price} $</div>
       </Card>
     </Col>
   )

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTypes } from "../../http/deviceAPI";
+import { setCurrentPage } from "../../reducers/deviceReducer";
 import { setSelectedType } from "../../reducers/typeReducer";
 import './typeBar.css';
 
@@ -14,12 +15,24 @@ const TypeBar = () => {
     fetchTypes(dispatch);
   }, [])
 
+  const typeHandler = (type) => {
+    dispatch(setSelectedType(type));
+    dispatch(setCurrentPage(1));
+  }
+  
+  function clearTypes() {
+    dispatch(setSelectedType({}));
+  }
+
   return (
     <ListGroup>
+      <ListGroup.Item onClick={clearTypes}>
+          Сбросить все
+      </ListGroup.Item>
       {types.map((type) => (
         <ListGroup.Item
           key={type.id}
-          onClick={()=>{dispatch(setSelectedType(type))}}
+          onClick={()=>{typeHandler(type)}}
           active={type.id === selectedTypeId}
         >
           {type.name}

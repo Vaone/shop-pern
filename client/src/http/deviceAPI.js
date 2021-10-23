@@ -1,10 +1,10 @@
 import { $authHost, $host } from "./index";
 import { setType } from "../reducers/typeReducer";
 import { setBrand } from "../reducers/brandReducer";
-import { setDevice, setTotalCount } from "../reducers/deviceReducer";
+import { setCurrentPage, setDevice, setTotalCount } from "../reducers/deviceReducer";
 
 // Types
-export const createType = async (dispatch, type) => {
+export const createType = async (type) => {
   try {
     const { data } = await $authHost.post("/api/type", type);
     return data;
@@ -16,6 +16,7 @@ export const createType = async (dispatch, type) => {
 export const fetchTypes = async (dispatch) => {
   const { data } = await $host.get("/api/type");
   dispatch(setType(data));
+  dispatch(setCurrentPage(1));
   return data;
 };
 
@@ -33,6 +34,7 @@ export const fetchBrands = async (dispatch) => {
   try {
     const { data } = await $host.get("/api/brand");
     dispatch(setBrand(data));
+    dispatch(setCurrentPage(1));
   } catch (e) {
     throw e;
   }
@@ -48,14 +50,14 @@ export const createDevice = async (device) => {
   }
 };
 
-export const fetchDevices = () => {
+export const fetchDevices = (typeId, brandId, page, limit=5) => {
   return async dispatch => {
     try {
-      const { data } = await $host.get("/api/device");
+      const { data } = await $host.get("/api/device", {params: {typeId, brandId, page, limit}});
       dispatch(setDevice(data.rows))
       dispatch(setTotalCount(data.count))
     } catch (e) {
-
+      alert(e.response.data.message);
     }
     
   } 

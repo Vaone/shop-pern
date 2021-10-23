@@ -7,11 +7,18 @@ import DeviceItem from "./DeviceItem/DeviceItem";
 
 const DeviceList = () => {
   const devices = useSelector((state) => state.device.devices);
+  const currentPage = useSelector(state=> state.device.currentPage);
+  const selectedBrandId = useSelector((state) => state.brand.selectedBrand.id);
+  const selectedTypeId = useSelector((state) => state.type.selectedType.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDevices());
+    dispatch(fetchDevices(null, null, 1, 2));
   }, []);
+
+  useEffect(()=> {
+    dispatch(fetchDevices(selectedTypeId, selectedBrandId, currentPage, 2));
+  }, [currentPage, selectedTypeId, selectedBrandId])
 
   return (
     <Row className="d-flex mt-3">
