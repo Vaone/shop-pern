@@ -1,7 +1,7 @@
 import { $authHost, $host } from "./index";
 import { setType } from "../reducers/typeReducer";
 import { setBrand } from "../reducers/brandReducer";
-import { setDevice } from "../reducers/deviceReducer";
+import { setDevice, setTotalCount } from "../reducers/deviceReducer";
 
 // Types
 export const createType = async (dispatch, type) => {
@@ -48,10 +48,17 @@ export const createDevice = async (device) => {
   }
 };
 
-export const fetchDevices = async (dispatch) => {
-  const { data } = await $host.get("/api/device");
-  dispatch(setDevice(data.rows));
-  return data.rows;
+export const fetchDevices = () => {
+  return async dispatch => {
+    try {
+      const { data } = await $host.get("/api/device");
+      dispatch(setDevice(data.rows))
+      dispatch(setTotalCount(data.count))
+    } catch (e) {
+
+    }
+    
+  } 
 };
 
 export const fetchOneDevice = async (id) => {
