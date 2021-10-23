@@ -1,29 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Image, Row, Button } from "react-bootstrap";
 import star from "../assets/images/star.svg";
+import {useParams} from 'react-router-dom';
+import { fetchOneDevice } from "../http/deviceAPI";
 
 const DevicePage = () => {
-  const device = {
-    id: 1,
-    name: "Xiaomi Mi Mix 4",
-    price: 30000,
-    rating: 5,
-    img: `www.purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png`,
-  };
+  const [device, setDevice] = useState({info: []});
+  const {id} = useParams();
 
-  const description = [
-    {id:1, title: 'Оперативная память', description: '5 гб'},
-    {id:2, title: 'Камера', description: '12 мп'},
-    {id:3, title: 'Процессор', description: 'Пентиум 3'},
-    {id:4, title: 'Кол-во ядер', description: '2'},
-    {id:5, title: 'Аккумулятор', description: '4000'}
-  ];
+  useEffect(()=>{
+    fetchOneDevice(id).then(data=> setDevice(data));
+  },[])
 
   return (
     <Container className="mt-3">
       <Row>
         <Col md={4} className="d-flex justify-content-center">
-          <Image width={300} height={300} src={"http://" + device.img} />
+          <Image width={200} height={400} src={process.env.REACT_APP_API_URL + device.img} />
         </Col>
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
@@ -53,9 +46,9 @@ const DevicePage = () => {
       </Row>
       <Row className="d-flex flex-column m-3">
         <h1>Характеристики</h1>
-        {description.map((info, index) => 
-          <Row key={info.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
-            {info.title}: {info.description}
+        {device.info.map((infoItem, index) => 
+          <Row key={infoItem.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
+            {infoItem.title} : {infoItem.description}
           </Row>  
         )}
       </Row>

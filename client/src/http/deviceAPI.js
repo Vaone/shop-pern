@@ -54,8 +54,11 @@ export const fetchDevices = async (dispatch) => {
   return data.rows;
 };
 
-export const fetchOneDevice = async (id, dispatch) => {
-  const { data } = await $host.get("/api/device" + id);
-  dispatch(setBrand(data));
-  return data;
+export const fetchOneDevice = async (id) => {
+  try {
+    const { data } = await $host.get("/api/device/" + id);
+    return data;
+  } catch(e) {
+    alert(e.response.data.message);
+  }
 };
