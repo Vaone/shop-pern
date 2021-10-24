@@ -4,11 +4,10 @@ import TypeBar from "../components/TypeBar/TypeBar";
 import BrandBar from "../components/BrandBar/BrandBar";
 import DeviceList from "../components/DeviceList/DeviceList";
 import { fetchBrands } from "../http/deviceAPI";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Shop = () => {
   const dispatch = useDispatch();
-  // const brands = useSelector(state=> state.brand.brands);
 
   useEffect(() => {
     fetchBrands(dispatch)
