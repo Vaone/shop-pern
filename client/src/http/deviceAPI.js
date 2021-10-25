@@ -1,5 +1,5 @@
 import { $authHost, $host } from "./index";
-import { setType } from "../reducers/typeReducer";
+import { deleteTypeAC, setType } from "../reducers/typeReducer";
 import { deleteBrandAC, setBrand } from "../reducers/brandReducer";
 import { setCurrentPage, setDevice, setTotalCount } from "../reducers/deviceReducer";
 
@@ -18,6 +18,18 @@ export const fetchTypes = async (dispatch) => {
   dispatch(setType(data));
   dispatch(setCurrentPage(1));
   return data;
+};
+
+export function deleteType (id) {
+  return async (dispatch) => {
+    try {
+      const { data } = await $authHost.delete(`/api/type?id=${id}`);
+      dispatch(deleteTypeAC(id))
+      alert(data.message);
+    } catch (e) {
+      throw e;
+    }
+  }
 };
 
 // Brands
